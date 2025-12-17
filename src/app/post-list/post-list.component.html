@@ -1,0 +1,65 @@
+<div class="post-list-container">
+  <div class="header">
+    <h1>Posts Management</h1>
+    <button 
+      class="btn-add-post" 
+      (click)="toggleForm()"
+      [disabled]="isLoading()">
+      {{ showForm() ? 'Cancel' : 'Add New Post' }}
+    </button>
+  </div>
+
+  <!-- Error Message -->
+  @if (error()) {
+    <div class="error-message">
+      <strong>Error:</strong> {{ error() }}
+      <button class="btn-retry" (click)="loadPosts()">Retry</button>
+    </div>
+  }
+
+  <!-- Add Post Form -->
+  @if (showForm()) {
+    <app-add-post-form
+      (postCreated)="handlePostCreated($event)"
+      (cancelled)="handleFormCancelled()">
+    </app-add-post-form>
+  }
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="loading">Loading posts...</div>
+  }
+
+  <!-- Posts Table -->
+  @if (!isLoading() && posts().length > 0) {
+    <div class="table-container">
+      <table class="posts-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Title</th>
+            <th>Body</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (post of posts(); track post.id) {
+            <tr>
+              <td>{{ post.id }}</td>
+              <td>{{ post.userId }}</td>
+              <td>{{ post.title }}</td>
+              <td>{{ post.body }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!isLoading() && !error() && posts().length === 0) {
+    <div class="empty-state">
+      <p>No posts found. Click "Add New Post" to create one.</p>
+    </div>
+  }
+</div>
