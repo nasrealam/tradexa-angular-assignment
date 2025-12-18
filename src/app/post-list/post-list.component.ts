@@ -22,9 +22,8 @@ export class PostListComponent implements OnInit {
     await this.loadPosts();
   }
 
-  /**
-   * Load all posts from the API
-   */
+  
+  // Load all posts from the AP
   async loadPosts(): Promise<void> {
     this.isLoading.set(true);
     this.error.set(null);
@@ -48,18 +47,17 @@ export class PostListComponent implements OnInit {
     this.showForm.set(!this.showForm());
   }
 
-  /**
-   * Handle new post creation
-   */
+  
+  // Handle new post creation
+  
   async handlePostCreated(newPost: Post): Promise<void> {
-    // Add the new post to the beginning of the array
     this.posts.update(currentPosts => [newPost, ...currentPosts]);
     this.showForm.set(false);
   }
 
-  /**
-   * Handle form cancellation
-   */
+
+// Handle form cancellation
+
   handleFormCancelled(): void {
     this.showForm.set(false);
   }

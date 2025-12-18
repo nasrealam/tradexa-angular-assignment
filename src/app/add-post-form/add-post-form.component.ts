@@ -11,23 +11,21 @@ import { Post } from '../models/post.interface';
   styleUrl: './add-post-form.component.scss'
 })
 export class AddPostFormComponent {
-  // Form fields
+
   protected title = signal<string>('');
   protected body = signal<string>('');
   
-  // UI state
   protected isSubmitting = signal<boolean>(false);
   protected error = signal<string | null>(null);
   
-  // Output events
   postCreated = output<Post>();
   cancelled = output<void>();
 
   constructor(private postsService: PostsService) {}
 
-  /**
-   * Handle form submission
-   */
+
+  //  Handle form submission
+  
   async onSubmit(): Promise<void> {
     // Validate inputs
     if (!this.title().trim()) {
@@ -47,7 +45,7 @@ export class AddPostFormComponent {
       const newPost = await this.postsService.createPost({
         title: this.title().trim(),
         body: this.body().trim(),
-        userId: 1 // Default user ID
+        userId: 1 
       });
 
       // Emit the created post
@@ -66,26 +64,26 @@ export class AddPostFormComponent {
     }
   }
 
-  /**
-   * Handle form cancellation
-   */
+  
+  // Handle form cancellation
+  
   onCancel(): void {
     this.resetForm();
     this.cancelled.emit();
   }
 
-  /**
-   * Reset form fields
-   */
+  
+  // Reset form fields
+  
   private resetForm(): void {
     this.title.set('');
     this.body.set('');
     this.error.set(null);
   }
 
-  /**
-   * Update title value
-   */
+  
+  // Update title value
+  
   updateTitle(value: string): void {
     this.title.set(value);
     if (this.error()) {
@@ -93,9 +91,9 @@ export class AddPostFormComponent {
     }
   }
 
-  /**
-   * Update body value
-   */
+  
+  // Update body value
+  
   updateBody(value: string): void {
     this.body.set(value);
     if (this.error()) {

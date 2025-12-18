@@ -7,10 +7,10 @@ import { Post, CreatePostRequest } from '../models/post.interface';
 export class PostsService {
   private readonly API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
-  /**
-   * Fetch all posts from the API
-   * Returns a Promise that resolves to an array of posts
-   */
+  
+  // Fetch all posts from the API
+  // Returns a Promise that resolves to an array of po
+  
   async getPosts(): Promise<Post[]> {
     try {
       const response = await fetch(this.API_URL);
@@ -27,10 +27,10 @@ export class PostsService {
     }
   }
 
-  /**
-   * Create a new post
-   * Returns a Promise that resolves to the created post
-   */
+  
+  // Create a new post
+  // Returns a Promise that resolves to the created post
+  
   async createPost(postData: CreatePostRequest): Promise<Post> {
     try {
       const response = await fetch(this.API_URL, {
